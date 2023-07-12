@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    {% load static %}
+    {% url 'graph:home' as backToMenu %}
+    {% url 'graph:formchampionupdated' as formchampion %}
+    {% url 'graph:ajax_graph' as ajax_graph %}
+
+    <title>Lol Charts</title>
+
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
+
+        * {
+          box-sizing: border-box;
+          margin: 0;
+          padding: 0;
+        }
+
+        body {
+          min-height: 100vh;
+          display: flex;
+          font-family: "Roboto", sans-serif;
+        }
+
+        ul {
+          list-style: none;
+        }
+
+        .sidebar {
+          width: 250px;
+          background: #efefef;
+          color: #555;
+          display: flex;
+          flex-direction: column;
+          gap: 0.5rem;
+          padding: 0.25rem;
+        }
+
+        .list {
+          display: flex;
+          flex-direction: column;
+          gap: 0.25rem;
+        }
+
+        .list li {
+          cursor: pointer;
+          letter-spacing: 1px;
+          font-size: 0.9rem;
+        }
+
+        .list-title {
+          display: flex;
+          gap: 0.5rem;
+          align-items: center;
+          width: 100%;
+          padding: 0.5rem;
+          border-radius: 0.25rem;
+        }
+
+        .list-title > * {
+          pointer-events: none;
+        }
+
+        .list-title .fa-chevron-down {
+          margin-left: auto;
+          font-size: 0.75rem;
+        }
+
+        .list-title:hover,
+        .list-title.active,
+        .list-pos.active,
+        .list.inner li:hover {
+          background: #ddd;
+        }
+
+        .list.inner {
+          height: 0;
+          overflow: hidden;
+          transition: height 200ms ease;
+        }
+
+        .list.inner li {
+          padding: 0.5rem;
+          border-radius: 0.25rem;
+          padding-left: 2rem;
+        }
+
+        .list-title.active .fa-chevron-down {
+          transform: rotate(180deg);
+        }
+
+        .icon_lol {
+          height: 20px;
+          width: 20px;
+          vertical-align: middle;
+        }
+
+        .icon-text {
+          vertical-align: middle;
+        }
+
+        /*the container must be positioned relative:*/
+        .autocomplete {
+          position: relative;
+          display: inline-block;
+          margin-right: 10px;
+        }
+
+        input {
+          border: 1px solid transparent;
+          background-color: #f1f1f1;
+          padding: 5px;
+          font-size: 13px;
+        }
+
+        input[type=text] {
+          background-color: #ffffff;
+          width: 100%;
+        }
+
+        input[type=submit] {
+          border: 1px solid DodgerBlue;
+          background-color: #efefef;
+          color: DodgerBlue;
+          cursor: pointer;
+          transition: background-color 0.3s;
+        }
+
+        input[type=submit]:hover {
+          background-color: DodgerBlue;
+          color: #fff;
+        }
+
+        .autocomplete-items {
+          position: absolute;
+          border: 1px solid #d4d4d4;
+          border-bottom: none;
+          border-top: none;
+          z-index: 99;
+          /*position the autocomplete items to be the same width as the container:*/
+          top: 100%;
+          left: 0;
+          right: 0;
+        }
+
+        .autocomplete-items div {
+          padding: 10px;
+          cursor: pointer;
+          background-color: #fff;
+          border-bottom: 1px solid #d4d4d4;
+        }
+
+        /*when hovering an item:*/
+        .autocomplete-items div:hover {
+          background-color: #e9e9e9;
+        }
+
+        /*when navigating through the items using the arrow keys:*/
+        .autocomplete-active {
+          background-color: DodgerBlue !important;
+          color: #ffffff;
+        }
+
+        .container {
+          display: flex; /* Utilisation de flexbox pour créer une mise en page en ligne */
+        }
+
+        .core {
+          display: block; /* ou display: inline-block; */
+          width: 100%; /* Définissez la largeur souhaitée */
+          height: 100vh; /* Définissez la hauteur souhaitée */
+          padding: 10px; /* Ajoutez du remplissage pour délimiter le contenu du conteneur */
+          margin: 2px; /* Ajoutez une marge pour séparer les conteneurs */
+        }
+
+        #stateLabel {
+          display: block;
+          text-align: center;
+          margin-top: 8px;
+        }
+
+        #overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 9999;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        }
+
+        #overlay .loader {
+            border: 8px solid #f3f3f3;
+            border-top: 8px solid #3498db;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            animation: spin 2s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+    </style>
+
+</head>
+
+<body>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <div hidden id="overlay_wrapper">
+        <div id="overlay">
+            <div class="loader"></div>
+        </div>
+    </div>
+
+
+    <div class="sidebar">
+      <a href="{{ backToMenu }}">
+        <img src="{% static 'LogoChart.png' %}" alt="Logo" style="height: 110px; width: 110px; margin-left: 23%">
+      </a>
+      <ul class="list">
+        <li>
+          <span class="list-title">
+            <i class="fa fa-home"></i>
+            Links
+            <i class="fa fa-chevron-down"></i>
+          </span>
+
+          <ul class="list inner">
+            <div class="content">
+              <li id="link1">Champions form</li>
+              <li id="link2">Graph editor</li>
+            </div>
+          </ul>
+        </li>
+
+        <li>
+          <span class="list-title">
+            <i class="fa fa-cog"></i>
+            Presets
+            <i class="fa fa-chevron-down"></i>
+          </span>
+
+          <ul class="list inner">
+            <div class="content">
+              <li id="preset1">Losses</li>
+              <li id="preset2">Preset #2</li>
+              <li id="preset3">Preset #3</li>
+            </div>
+          </ul>
+        </li>
+
+          <hr style="margin-top: 10px; margin-bottom: 10px">
+
+        <li>
+          <span class="list-title">
+            <img src="{% static 'image_position/lane.png' %}" style="margin-left: -2px" alt="Icon 1" class="icon_lol">
+            Positions
+            <i class="fa fa-chevron-down"></i>
+          </span>
+
+          <ul class="list inner">
+            <div class="content">
+              <li id="toplane" class="list-pos">
+                <img src="{% static 'image_position/top.png' %}" alt="Icon 1" class="icon_lol">
+                <span class="icon-text">Toplane</span>
+              </li>
+              <li id="jungle" class="list-pos">
+                <img src="{% static 'image_position/jungle.png' %}" alt="Icon 2" class="icon_lol">
+                <span class="icon-text">Jungle</span>
+              </li>
+              <li id="midlane" class="list-pos">
+                <img src="{% static 'image_position/mid.png' %}" alt="Icon 3" class="icon_lol">
+                <span class="icon-text">Midlane</span>
+              </li>
+              <li id="botlane" class="list-pos">
+                <img src="{% static 'image_position/bot.png' %}" alt="Icon 4" class="icon_lol">
+                <span class="icon-text">Botlane</span>
+              </li>
+              <li id="support" class="list-pos">
+                <img src="{% static 'image_position/supp.png' %}" alt="Icon 5" class="icon_lol">
+                <span class="icon-text">Support</span>
+              </li>
+            </div>
+
+
+          </ul>
+        </li>
+
+        <li>
+          <span class="list-title">
+            <i class="fa-solid fa-medal"></i>
+            Win sort
+            <i class="fa fa-chevron-down"></i>
+          </span>
+
+          <ul class="list inner">
+            <div class="content">
+              <li id="win" class="list-pos" style="height: 100px">
+                <label for="customRange2" class="form-label">Choose state</label>
+                <input type="range" class="form-range" min="0" max="2" id="customRange2">
+                <span id="stateLabel"></span>
+              </li>
+            </div>
+          </ul>
+        </li>
+
+        <li>
+          <span class="list-title">
+            <i class="fa fa-users"></i>
+            Champions
+            <i class="fa fa-chevron-down"></i>
+          </span>
+
+          <ul class="list inner">
+            <div class="content">
+              <li style="height: 500px">
+                  <div class="container">
+                      <div class="autocomplete" style="width: 150px;">
+                        <input id="myInput" type="text" name="myCountry" placeholder="Champions...">
+                      </div>
+                  </div>
+              </li>
+            </div>
+          </ul>
+        </li>
+        <input style="height: 28px; position: fixed; bottom: 10px; width: 11.8%" class="submit-button" type="submit" value="Apply" id="applyButton">
+      </ul>
+    </div>
+
+    <div class="core">
+      {% include "index/template_statbychamp_ajax.html" %}
+    </div>
+
+    <script>
+      var rangeInput = document.getElementById('customRange2');
+      var stateLabel = document.getElementById('stateLabel');
+
+      rangeInput.addEventListener('input', function() {
+        var selectedValue = parseInt(rangeInput.value);
+        var stateText = '';
+
+        switch (selectedValue) {
+          case 0:
+            stateText = 'Only losses';
+            break;
+          case 1:
+            stateText = 'Only wins';
+            break;
+          case 2:
+            stateText = 'All games';
+            break;
+        }
+
+        stateLabel.textContent = stateText;
+      });
+    </script>
+
+    <script>
+        const handleClick = (event) => {
+        const listTitle = event.target;
+        const innerList = listTitle.nextElementSibling;
+        const content = innerList.querySelector(".content");
+
+        // listTitle.classList.toggle("active");
+        if (listTitle.classList.contains("active")) {
+        listTitle.classList.remove("active");
+        innerList.style.height = 0;
+        } else {
+        listTitle.classList.add("active");
+        innerList.style.height = `${content.clientHeight}px`;
+        }
+        };
+
+        const listTitles = document.querySelectorAll(".list-title");
+        for (let listTitle of listTitles) {
+        listTitle.addEventListener("click", handleClick);
+        }
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var toplaneButton = document.getElementById('toplane');
+            var jungleButton = document.getElementById('jungle');
+            var midlaneButton = document.getElementById('midlane');
+            var botlaneButton = document.getElementById('botlane');
+            var supportButton = document.getElementById('support');
+            var winButton = document.getElementById('customRange2');
+            var inputChampionForm = document.getElementById('myInput');
+            var applyButton = document.getElementById('applyButton');
+            var stateName = "";
+            var positions = [];
+            var championName = "";
+            inputChampionForm.value = "";
+            winButton.value = 2;
+
+            var preset1Button = document.getElementById('preset1');
+            var preset2Button = document.getElementById('preset2');
+            var preset3Button = document.getElementById('preset3');
+            var link1Button = document.getElementById('link1');
+            var link2Button = document.getElementById('link2');
+
+            toplaneButton.addEventListener('click', function() {
+                if (toplaneButton.classList.contains("active")) {
+                    toplaneButton.classList.remove("active");
+                }
+                else {
+                    toplaneButton.classList.add("active");
+                }
+
+            });
+
+            jungleButton.addEventListener('click', function() {
+                if (jungleButton.classList.contains("active")) {
+                    jungleButton.classList.remove("active");
+                }
+                else {
+                    jungleButton.classList.add("active");
+                }
+
+            });
+
+            midlaneButton.addEventListener('click', function() {
+                if (midlaneButton.classList.contains("active")) {
+                    midlaneButton.classList.remove("active");
+                }
+                else {
+                    midlaneButton.classList.add("active");
+                }
+
+            });
+
+            botlaneButton.addEventListener('click', function() {
+                if (botlaneButton.classList.contains("active")) {
+                    botlaneButton.classList.remove("active");
+                }
+                else {
+                    botlaneButton.classList.add("active");
+                }
+
+            });
+
+            supportButton.addEventListener('click', function() {
+                if (supportButton.classList.contains("active")) {
+                    supportButton.classList.remove("active");
+                }
+                else {
+                    supportButton.classList.add("active");
+                }
+
+            });
+
+            applyButton.addEventListener('click', function() {
+
+                positions = []; // Réinitialisation du tableau des positions
+
+                // Récupération des boutons activés
+                var activeButtons = document.querySelectorAll('.list-pos.active');
+
+                // Création d'un tableau pour stocker les valeurs des boutons activés
+                for (var i = 0; i < activeButtons.length; i++) {
+                  positions.push(activeButtons[i].id);
+                }
+
+                // Récupération des boutons activés
+                var activeState = winButton.value;
+
+                switch (activeState) {
+                    case "0":
+                        stateName = "loss";
+                        break;
+                    case "1":
+                        stateName = "win";
+                        break;
+                    case "2":
+                        stateName = "all";
+                        break;
+                }
+
+                championName = inputChampionForm.value;
+
+                fetch_data(positions, stateName, championName);
+            });
+
+            preset1Button.addEventListener('click', function() {
+                positions = ["toplane", "jungle", "midlane", "botlane", "support"];
+                stateName = "loss";
+                championName = "";
+                fetch_data(positions, stateName, championName);
+
+            });
+
+            preset2Button.addEventListener('click', function() {
+                console.log("preset2");
+
+            });
+
+            preset3Button.addEventListener('click', function() {
+                console.log("preset3");
+
+            });
+
+            link1Button.addEventListener('click', function() {
+                window.location.href = "{{ formchampion }}";
+
+            });
+
+            link2Button.addEventListener('click', function() {
+                window.location.href = "{{ ajax_graph }}";
+
+            });
+
+        });
+
+
+    </script>
+
+    <script>
+        function autocomplete(inp, arr) {
+          /*the autocomplete function takes two arguments,
+          the text field element and an array of possible autocompleted values:*/
+          var currentFocus;
+          /*execute a function when someone writes in the text field:*/
+          inp.addEventListener("input", function(e) {
+              var a, b, i, val = this.value;
+              /*close any already open lists of autocompleted values*/
+              closeAllLists();
+              if (!val) { return false;}
+              currentFocus = -1;
+              /*create a DIV element that will contain the items (values):*/
+              a = document.createElement("DIV");
+              a.setAttribute("id", this.id + "autocomplete-list");
+              a.setAttribute("class", "autocomplete-items");
+              /*append the DIV element as a child of the autocomplete container:*/
+              this.parentNode.appendChild(a);
+              /*for each item in the array...*/
+              for (i = 0; i < arr.length; i++) {
+                /*check if the item starts with the same letters as the text field value:*/
+                if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
+                  /*create a DIV element for each matching element:*/
+                  b = document.createElement("DIV");
+                  /*make the matching letters bold:*/
+                  b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
+                  b.innerHTML += arr[i].substr(val.length);
+                  /*insert a input field that will hold the current array item's value:*/
+                  b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
+                  /*execute a function when someone clicks on the item value (DIV element):*/
+                  b.addEventListener("click", function(e) {
+                      /*insert the value for the autocomplete text field:*/
+                      inp.value = this.getElementsByTagName("input")[0].value;
+                      /*close the list of autocompleted values,
+                      (or any other open lists of autocompleted values:*/
+                      closeAllLists();
+                  });
+                  a.appendChild(b);
+                }
+              }
+          });
+          /*execute a function presses a key on the keyboard:*/
+          inp.addEventListener("keydown", function(e) {
+              var x = document.getElementById(this.id + "autocomplete-list");
+              if (x) x = x.getElementsByTagName("div");
+              if (e.keyCode == 40) {
+                /*If the arrow DOWN key is pressed,
+                increase the currentFocus variable:*/
+                currentFocus++;
+                /*and and make the current item more visible:*/
+                addActive(x);
+              } else if (e.keyCode == 38) { //up
+                /*If the arrow UP key is pressed,
+                decrease the currentFocus variable:*/
+                currentFocus--;
+                /*and and make the current item more visible:*/
+                addActive(x);
+              } else if (e.keyCode == 13) {
+                /*If the ENTER key is pressed, prevent the form from being submitted,*/
+                e.preventDefault();
+                if (currentFocus > -1) {
+                  /*and simulate a click on the "active" item:*/
+                  if (x) x[currentFocus].click();
+                }
+              }
+          });
+          function addActive(x) {
+            /*a function to classify an item as "active":*/
+            if (!x) return false;
+            /*start by removing the "active" class on all items:*/
+            removeActive(x);
+            if (currentFocus >= x.length) currentFocus = 0;
+            if (currentFocus < 0) currentFocus = (x.length - 1);
+            /*add class "autocomplete-active":*/
+            x[currentFocus].classList.add("autocomplete-active");
+          }
+          function removeActive(x) {
+            /*a function to remove the "active" class from all autocomplete items:*/
+            for (var i = 0; i < x.length; i++) {
+              x[i].classList.remove("autocomplete-active");
+            }
+          }
+          function closeAllLists(elmnt) {
+            /*close all autocomplete lists in the document,
+            except the one passed as an argument:*/
+            var x = document.getElementsByClassName("autocomplete-items");
+            for (var i = 0; i < x.length; i++) {
+              if (elmnt != x[i] && elmnt != inp) {
+                x[i].parentNode.removeChild(x[i]);
+              }
+            }
+          }
+          /*execute a function when someone clicks in the document:*/
+          document.addEventListener("click", function (e) {
+              closeAllLists(e.target);
+          });
+        }
+
+        /*An array containing all the country names in the world:*/
+        var champions = ['Ivern', 'Anivia', 'Xerath', 'Sona', 'Ahri', 'Janna', 'Skarner', 'Pantheon', 'Amumu', 'Draven', 'Warwick', 'Twitch', 'KogMaw', 'Zilean', 'Xin Zhao', 'Annie', 'Ziggs', 'Yasuo', 'Soraka', 'Tryndamere', 'Blitzcrank', 'Master Yi', 'Kayle', 'Leona', 'Miss Fortune', 'Irelia', 'Darius', 'Brand', 'Aatrox', 'Teemo', 'Jarvan IV', 'Illaoi', 'Caitlyn', 'VelKoz', 'Sejuani', 'Swain', 'Jax', 'Kindred', 'Riven', 'Nunu', 'Karthus', 'Shaco', 'Taric', 'Lulu', 'Vi', 'Nami', 'Jinx', 'Wukong', 'Bard', 'Fiora', 'Lucian', 'Renekton', 'Morgana', 'Thresh', 'Yorick', 'Fiddlesticks', 'Kassadin', 'Sion', 'Twisted Fate', 'Hecarim', 'Fizz', 'Malphite', 'Orianna', 'Garen', 'Kled', 'Katarina', 'Braum', 'Syndra', 'Zyra', 'Nocturne', 'Lux', 'Shyvana', 'Tristana', 'Vayne', 'Jayce', 'Zac', 'Rammus', 'Talon', 'Ashe', 'Varus', 'Ekko', 'KhaZix', 'Aurelion Sol', 'Alistar', 'Xayah', 'Elise', 'Volibear', 'Evelynn', 'Galio', 'Gangplank', 'Veigar', 'Akali', 'Sivir', 'Singed', 'Taliyah', 'Heimerdinger', 'Diana', 'RekSai', 'Maokai', 'Gragas', 'Olaf', 'Karma', 'Kalista', 'Graves', 'Lee Sin', 'Nasus', 'Mordekaiser', 'Shen', 'Corki', 'ChoGath', 'Rumble', 'Viktor', 'Lissandra', 'Nautilus', 'Quinn', 'Vladimir', 'Malzahar', 'Udyr', 'DrMundo', 'Cassiopeia', 'Tahm Kench', 'Trundle', 'Gnar', 'Kennen', 'Camille', 'Nidalee', 'Zed', 'Poppy', 'LeBlanc', 'Jhin', 'Urgot', 'Rakan', 'Rengar', 'Ezreal', 'Azir', 'Ryze']
+
+        /*initiate the autocomplete function on the "myInput" element, and pass along the countries array as possible autocomplete values:*/
+        autocomplete(document.getElementById("myInput"), champions);
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,22 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+</head>
+
+<body>
+
+    {% for elm in item_set %}
+        {% for item in elm %}
+            <img src="{% static 'image_lol/'|add:item.item_img_name %}" alt="{{ item.item_name }}" class="icon" style="max-width: 65px; max-height: 65px; margin-bottom: 3px" data-toggle="popover" title="{{ item.item_name }}">
+        {% endfor %}
+        <br>
+    {% endfor %}
+
+
+</body>
+
+</html>

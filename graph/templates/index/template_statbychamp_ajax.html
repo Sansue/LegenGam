@@ -1,0 +1,276 @@
+{% load static %}
+
+<style>
+
+    .chart-wrapper {
+        width: 100%;
+        height: 300px; /* Adjust the height as needed */
+        margin-right: 20px;
+    }
+
+    .champ_container{
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+
+</style>
+
+<div>
+    <div id="core">
+        <div id="champ_container" class="champ_container">
+            <!-- champ info -->
+        </div>
+
+        <div class="table-responsive">
+            <table class="table">
+                <tr>
+                    <td class="col-4">
+                        <canvas id="ChartWR" class="chart chart-wrapper"></canvas>
+                    </td>
+                    <td class="col-4">
+                        <canvas id="ChartKDA" class="chart chart-wrapper"></canvas>
+                    </td>
+                    <td class="col-4">
+                        <canvas id="ChartPOS" class="chart chart-wrapper"></canvas>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+         <div id="item_container" style="text-align: center">
+            <!-- items -->
+        </div>
+
+    </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+    let test = false;
+    let ChartWR;
+    let ChartKDA;
+    let ChartPos;
+    chartPos_colors = ["#4D4D70", "#FF1919", "#4B87FF", "#00EBAF", "#FFAF00"]
+    $content = document.getElementById('core');
+    $item_container = document.getElementById('item_container');
+    $champ_container = document.getElementById('champ_container');
+    let overlay = document.getElementById('overlay_wrapper');
+
+    function drawChart(data) {
+        let winrate = data.winrate.winrate;
+        let kda = data.kda.kda;
+        let positions = data.positions;
+
+        const ctxWR = document.getElementById('ChartWR').getContext('2d');
+        ChartWR = new Chart(ctxWR, {
+            type: 'bar',
+            data: {
+                labels: ['Winrate'],
+                datasets: [{
+                    label: 'Winrate',
+                    data: [winrate],
+                    scales: 'y',
+                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                    borderColor: 'rgb(255, 99, 132)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        type: 'linear',
+                        display: true,
+                        max: 80,
+                        scales: 'y',
+                        position: 'left',
+                        beginAtZero: false,
+                        min: 10
+                    }
+                }
+            }
+        });
+
+        const ctxKDA = document.getElementById('ChartKDA').getContext('2d');
+        ChartKDA = new Chart(ctxKDA, {
+            type: 'bar',
+            data: {
+                labels: ['KDA'],
+                datasets: [{
+                    label: 'KDA',
+                    data: [kda],
+                    scales: 'y1',
+                    backgroundColor: 'rgba(34, 223, 98, 0.2)',
+                    borderColor: 'rgb(34, 223, 98)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y1: {
+                        type: 'linear',
+                        display: true,
+                        max: 5,
+                        scales: 'y1',
+                        position: 'left',
+                        beginAtZero: true
+                    },
+                    y: {
+                        display: false
+                    }
+                }
+            }
+        });
+
+        const ctxPOS = document.getElementById('ChartPOS').getContext('2d');
+
+        const topcount = positions.TOP;
+        const jungle = positions.JUNGLE;
+        const mid = positions.MID;
+        const adc = positions.ADC;
+        const supp = positions.SUPP;
+        const tot = positions.champ_count;
+
+        ChartPos = new Chart(ctxPOS, {
+            type: 'doughnut',
+            data: {
+                labels: [
+                    "TOP",
+                    "JUNGLE",
+                    "MID",
+                    "ADC",
+                    "SUPPORT"
+                ],
+                datasets: [
+                    {
+                        data: [(topcount / tot) * 100, (jungle / tot) * 100, (mid / tot) * 100, (adc / tot) * 100, (supp / tot) * 100],
+                        backgroundColor: chartPos_colors,
+                    }]
+            },
+            options: {
+                responsive: true,
+                legend: {
+                    display: true,
+                },
+                title: {
+                    display: true,
+                    text: 'Pickrate by position'
+                },
+            }
+        });
+    }
+
+      function fetch_data(positions, stateName, championName) {
+        overlay.hidden = false;
+        let formData = new FormData();
+        formData.append('positions', positions);
+        formData.append('stateName', stateName);
+        formData.append('championName', championName);
+
+        const request = new Request("{% url 'graph:position_statbychamp_ajax' %}", {
+            method: 'POST',
+            body: formData,
+            }
+        );
+
+        fetch(request)
+          .then(response => response.json())
+          .then(data => {
+              if (test === false) {
+                  drawChart(data);
+                  //ChartPos.data.labels = data.labels_chart;
+                  //ChartPos.update();
+                  test = true;
+              }
+              else{
+                  ChartWR.data.datasets[0].data = [data.winrate.winrate];
+                  ChartKDA.data.datasets[0].data = [data.kda.kda];
+                  ChartPos.data.datasets[0].data = [(data.positions.TOP / data.positions.champ_count) * 100, (data.positions.JUNGLE / data.positions.champ_count) * 100, (data.positions.MID / data.positions.champ_count) * 100, (data.positions.ADC / data.positions.champ_count) * 100, (data.positions.SUPP / data.positions.champ_count) * 100];
+                  //ChartPos.data.labels = data.labels_chart;
+                  //changeBackgroundColor(data)
+
+                  ChartKDA.update();
+                  ChartWR.update();
+                  ChartPos.update();
+              }
+
+              $champ_container.innerHTML = '';
+              const imgChampElement = document.createElement('img');
+              imgChampElement.src = `/static/image_lol/${data.dict_name.champimgname}`;
+              imgChampElement.alt = data.dict_name.champname;
+              imgChampElement.classList.add('icon');
+              imgChampElement.style.maxWidth = '65px';
+              imgChampElement.style.maxHeight = '65px';
+              imgChampElement.setAttribute('data-toggle', 'popover');
+              imgChampElement.setAttribute('title', data.dict_name.champname);
+
+              const nameChampElement = document.createElement('p');
+              nameChampElement.innerHTML = data.dict_name.champname;
+              nameChampElement.style.fontSize = '40px';
+
+              $champ_container.appendChild(imgChampElement);
+              $champ_container.appendChild(nameChampElement);
+
+              // Clear previous content
+              $item_container.innerHTML = '';
+
+              const itemHeader = document.createElement('h3');
+                itemHeader.innerHTML = 'Most picked items';
+                itemHeader.style.fontSize = '30px';
+                itemHeader.style.marginTop = '20px';
+                itemHeader.style.marginBottom = '10px';
+                $item_container.appendChild(itemHeader);
+
+              for (const [name, imgName] of Object.entries(data.images)) {
+                  const imgElement = document.createElement('img');
+                  imgElement.src = `/static/image_lol/${imgName}`;
+                  imgElement.alt = name;
+                  imgElement.classList.add('icon');
+                  imgElement.style.maxWidth = '65px';
+                  imgElement.style.maxHeight = '65px';
+                  imgElement.setAttribute('data-toggle', 'popover');
+                  imgElement.setAttribute('title', name);
+
+                  imgElement.style.marginRight = '3px';
+
+                  $item_container.appendChild(imgElement);
+                }
+
+              overlay.hidden = true;
+          })
+          .catch(error => {
+            console.log('Error:', error);
+          });
+      }
+
+    function changeBackgroundColor(data) {
+        ChartPos.data.datasets[0].backgroundColor = [];
+        for (let i = 0; i < data.labels_chart.length; i++) {
+            if (data.labels_chart[i] === 'TOP')
+            {
+                ChartPos.data.datasets[0].backgroundColor.push(chartPos_colors[0]);
+            }
+            else if (data.labels_chart[i] === 'JUNGLE')
+            {
+                ChartPos.data.datasets[0].backgroundColor.push(chartPos_colors[1]);
+            }
+            else if (data.labels_chart[i] === 'MID')
+            {
+                ChartPos.data.datasets[0].backgroundColor.push(chartPos_colors[2]);
+            }
+            else if (data.labels_chart[i] === 'ADC')
+            {
+                ChartPos.data.datasets[0].backgroundColor.push(chartPos_colors[3]);
+            }
+            else if (data.labels_chart[i] === 'SUPP')
+            {
+                ChartPos.data.datasets[0].backgroundColor.push(chartPos_colors[4]);
+            }
+        }
+    }
+
+</script>

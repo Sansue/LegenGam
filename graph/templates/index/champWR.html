@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+    <style>
+        .fixed {
+            position: fixed;
+            top: 9vh;
+            left: 50vh;
+        }
+        .chart-container {
+          position: relative;
+          height: 80vh;
+          width: 600vw;
+            top: 10vh;
+        }
+
+    </style>
+    <h1 class="fixed">Winrate for most played champions</h1>
+      <div  class="chart-container">
+            <canvas id="WinrateMostPlayed"></canvas>
+
+          </div>
+        
+
+          <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        
+
+          <script>
+          const data = {{data|safe}}
+          const champions = []
+          const winrate = []
+          const games = []
+            data.forEach(element =>
+            {
+              champions.push(element[0])
+              winrate.push(element[1])
+              games.push(element[2])
+            });
+            
+            const ctx = document.getElementById('WinrateMostPlayed');
+            const winRateColor = [];
+            winrate.forEach(element => 
+            { 
+              var value = Math.max(38, Math.min(56, element));
+              var red = Math.round(255 * (56 - value) / 7);
+               var green = Math.round(255 * (value - 38) / 7);
+              winRateColor.push('rgb(' + red + ',' + green + ',0)');
+            });
+
+            new Chart(ctx, {
+              type: 'bar',
+              data: {
+                labels: champions,
+                datasets: [{
+                  label: 'Number of games played',
+                  yAxisID: 'games',
+                  data: games,
+                  backgroundColor: 'rgba(0,0,255,0.5)',
+                  borderWidth: 1,
+                  borderRadius: 0.1
+                },
+                {
+                  label: 'Winrate',
+                  yAxisID: 'winrate',
+                  data: winrate,
+                  backgroundColor: winRateColor,
+                  borderWidth: 1,
+                  borderRadius: 0.1
+                }]
+              },
+              options: {
+                maintainAspectRatio: false,
+
+                scales: {
+
+                      yAxes: [
+                        {
+                        id: 'percentage-y-axis', // Assign the unique ID to the first y-axis
+                        type: 'linear',
+                        position: 'left',
+                        ticks: {
+                            beginAtZero: true,
+                            max: 100,
+                            display:false,
+                        },
+
+                        },
+                {
+                    id: 'thousands-y-axis', // Assign the unique ID to the second y-axis
+                    type: 'linear',
+                    position: 'right',
+                    ticks: {
+                        beginAtZero: true,
+                    },
+                    Label: {
+                        display: false,
+                        labelString: 'Thousands'
+                    }
+                }
+            ]
+                }
+              }
+            });
+          </script>
+
+{% endblock %}

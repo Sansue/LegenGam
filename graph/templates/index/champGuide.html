@@ -1,0 +1,269 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block head %}
+{% endblock %}
+
+{% block content %}
+    {% url "graph:formchampionupdated" as formchampion %}
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <div style="text-align: center;">
+        <br>
+        <h1>{{ data.champ_stat.champ_name }} <img src="{% static 'image_lol/'|add:data.champ_img_name_champ.champ_icon %}" alt="{{ data.champ_stat.champ_name }}" class="icon" style="max-width: 70px; max-height: 70px" data-toggle="popover" title="{{ data.champ_stat.champ_name }}"></h1>
+        <br>
+    </div>
+
+    <table class="table">
+        <th class="col-4"><canvas id="ChartWR" class="chart"></canvas><br><canvas id="ChartPOS" class="chart"></canvas></th>
+        <th class="col-4"><canvas id="ChartKDA" class="chart"></canvas>
+                <br>
+                <div class="text-center">
+                    <h1>Most popular items and summs</h1>
+                    {% for slot, img_name in data.champ_img_name.items %}
+                        <img src="{% static 'image_lol/'|add:img_name %}" alt="{{ slot }}" class="icon" style="max-width: 65px; max-height: 65px" data-toggle="popover" title="{{ slot }}">
+                    {% endfor %}
+                    <br>
+                    <br>
+                    <h1>Most popular item sets</h1>
+
+                    <h4 style="text-align: center">Select the number of items in the set with buttons</h4>
+
+                    <form id="search-form">
+                        <div class="btn-group mr-2" role="group" aria-label="First group" style="margin-bottom: 5px">
+                            <button type="button" id="button1" class="btn btn-secondary">1</button>
+                            <button type="button" id="button2" class="btn btn-secondary">2</button>
+                            <button type="button" id="button3" class="btn btn-secondary">3</button>
+                            <button type="button" id="button4" class="btn btn-secondary">4</button>
+                            <button type="button" id="button5" class="btn btn-secondary">5</button>
+                            <button type="button" id="button6" class="btn btn-secondary">6</button>
+                        </div>
+                    </form>
+
+                    <div style="height: 15%">
+                        <div hidden id="spinner-border" class="spinner-grow text-dark" role="status" style="margin-top: 10%">
+                              <span class="visually-hidden">Loading...</span>
+                        </div>
+
+                        <div hidden id="items_set" style="height: 200px; width: 600px;"></div>
+                    </div>
+                </div>
+        </th>
+        <th class="col-4"><canvas id="ChartLVL" class="chart"></canvas>
+            <br>
+            <table class="table table-borderless">
+                <th class="col"><h1 class="text-center">Damage type: <img src="{% static 'image_lol/'|add:data.champ_stat.champ_dmgtype_icon %}" alt="{{ data.champ_stat.champ_dmgtype }}" class="icon" style="max-width: 50px; max-height: 50px" data-toggle="popover" title="{{ data.champ_stat.champ_dmgtype }}"></h1></th>
+
+            </table>
+
+        </th>
+    </table>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+          $spinner = document.getElementById('spinner-border');
+          $content = document.getElementById('items_set');
+          var button1 = document.getElementById('button1');
+          var button2 = document.getElementById('button2');
+          var button3 = document.getElementById('button3');
+          var button4 = document.getElementById('button4');
+          var button5 = document.getElementById('button5');
+          var button6 = document.getElementById('button6');
+
+          button1.addEventListener('click', function() {
+            sendDataToView(5);
+          });
+
+          button2.addEventListener('click', function() {
+            sendDataToView(4);
+          });
+
+          button3.addEventListener('click', function() {
+            sendDataToView(3);
+          });
+
+          button4.addEventListener('click', function() {
+            sendDataToView(2);
+          });
+
+            button5.addEventListener('click', function() {
+            sendDataToView(1);
+          });
+
+            button6.addEventListener('click', function() {
+            sendDataToView(0);
+          });
+
+          function sendDataToView(value) {
+            let formData = new FormData();
+            formData.append('value', value);
+            formData.append('champid', {{ data.champ_stat.champ_id }});
+            $spinner.hidden = false;
+            $content.hidden = true;
+
+            const request = new Request("{% url 'graph:item_set' %}", {
+                method: 'POST',
+                body: formData,
+                }
+            );
+
+            fetch(request)
+              .then(response => response.text())
+              .then(data => {
+                $spinner.hidden = true;
+                $content.hidden = false;
+                $content.innerHTML = data;
+              })
+              .catch(error => {
+                console.log('Error:', error);
+              });
+          }
+        });
+
+    </script>
+
+    <script>
+        var winrate = {{ data.champ_stat.champ_winrate }};
+        var kda = {{ data.champ_stat.champ_kda }};
+        var level = {{ data.champ_stat.champ_lvl }};
+        var positions = {{ data.champ_pos|safe }};
+
+        const ctxWR = document.getElementById('ChartWR').getContext('2d');
+        new Chart(ctxWR, {
+            type: 'bar',
+            data: {
+            labels: ['Winrate'],
+            datasets: [{
+                label: 'Winrate',
+                data: [winrate],
+                scales: 'y',
+                backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                borderColor: 'rgb(255, 99, 132)',
+                borderWidth: 1
+            }]
+        },
+            options: {
+            scales: {
+                y: {
+                    type: 'linear',
+                    display: true,
+                    max: 56,
+                    scales: 'y',
+                    position: 'left',
+                    beginAtZero: false,
+                    min : 39
+                }
+            }
+        }
+        });
+
+        const ctxKDA = document.getElementById('ChartKDA').getContext('2d');
+        new Chart(ctxKDA, {
+            type: 'bar',
+            data: {
+            labels: ['KDA'],
+            datasets: [{
+                label: 'KDA',
+                data: [kda],
+                scales: 'y1',
+                backgroundColor: 'rgba(34, 223, 98, 0.2)',
+                borderColor: 'rgb(34, 223, 98)',
+                borderWidth: 1
+            }]
+        },
+            options: {
+            scales: {
+                y1: {
+                    type: 'linear',
+                    display: true,
+                    max: 4,
+                    scales: 'y1',
+                    position: 'left',
+                    beginAtZero: true
+                },
+                y: {
+                    display:false
+                }
+            }
+        }
+        });
+
+        const ctxLVL = document.getElementById('ChartLVL').getContext('2d');
+        new Chart(ctxLVL, {
+            type: 'bar',
+            data: {
+            labels: ['Level'],
+            datasets: [{
+                label: 'Level',
+                data: [level],
+                scales: 'y2',
+                backgroundColor: 'rgba(43, 67, 248, 0.2)',
+                borderColor: 'rgb(43, 67, 248)',
+                borderWidth: 1
+            }]
+        },
+            options: {
+            scales: {
+                y2: {
+                    type: 'linear',
+                    max: 18,
+                    scales: 'y2',
+                    display: true,
+                    position: 'left',
+                    beginAtZero: false,
+                    min: 12
+                },
+                y: {
+                    display:false
+                }
+            }
+        }
+        });
+
+        const ctxPOS = document.getElementById('ChartPOS');
+
+          const topcount = positions.champ_top_count;
+          const jungle = positions.champ_jungle_count;
+          const mid = positions.champ_mid_count;
+          const adc = positions.champ_adc_count;
+          const supp = positions.champ_support_count;
+          const tot = positions.champ_count;
+
+          new Chart(ctxPOS, {
+            type: 'doughnut',
+            data: {
+            labels: [
+                "Top",
+                "Jungle",
+                "Mid",
+                "ADC",
+                "Support"
+            ],
+            datasets: [
+              {
+                data: [(topcount / tot) * 100, (jungle / tot) * 100, (mid / tot) * 100, (adc / tot) * 100, (supp / tot) * 100],
+                backgroundColor: [
+                    "#FF6320FF",
+                    "#36EBA2FF",
+                    "#FFD966FF",
+                    "#EA8FEAFF",
+                    "#36A2EBFF"
+                    ],
+              }]
+            },
+            options: {
+              responsive: true,
+              legend: {
+                display: true
+              },
+              title: {
+                display: true,
+                text: 'Pickrate by position'
+              },
+            }
+          });
+
+    </script>
+
+{% endblock %}

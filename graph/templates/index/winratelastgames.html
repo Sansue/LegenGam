@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+{% block head %}
+   <head>
+      <title>Percentage of games won in 180k LoL matches</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1"> 
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.6/Chart.bundle.js"></script>
+
+      
+      <script type="text/javascript">
+      window.onload=function(){
+      const wins = {{wins}}
+      const losses = {{losses}}
+      var data = {
+        labels: [
+        "Wins",
+        "Losses",  
+        ],
+        datasets: [
+          {
+            data: [wins, losses],
+            backgroundColor: [
+              "#36A2EB",
+              "#FF6283",
+            ],
+          }]
+      };
+      var promisedDeliveryChart = new Chart(document.getElementById('myChart'), {
+        type: 'doughnut',
+        data: data,
+        options: {
+          responsive: true,
+          legend: {
+            display: false
+          },
+          title: {
+            display: true,
+            text: 'Winrate in 180k LoL matches'
+          },
+        }
+      });
+      Chart.pluginService.register({
+        beforeDraw: function(chart) {
+          var width = chart.chart.width,
+              height = chart.chart.height,
+              ctx = chart.chart.ctx;
+          ctx.restore();
+          var fontSize = (height / 114).toFixed(2);
+          ctx.font = fontSize + "em sans-serif";
+          ctx.textBaseline = "middle";
+          var text = Math.round(wins/(wins+losses) * 100,0.1) + "%",
+              textX = Math.round((width - ctx.measureText(text).width) / 2),
+              textY = height / 1.8;
+          ctx.fillText(text, textX, textY);
+          ctx.save();
+        }
+      });
+          }
+
+    </script> 
+  </head>
+{% endblock %}
+
+{% block content %}
+    <br>
+      <canvas id="myChart"></canvas>  
+{% endblock %}

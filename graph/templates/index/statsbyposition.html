@@ -1,0 +1,167 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<style>
+    .chart-container {
+        display: flex;
+        max-width: 800px;
+        margin: 0 auto;
+        justify-content: left;
+    }
+    .chart {
+        flex: 1;
+        margin-right: 300px;
+        width: 300px;
+        height: 200px;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+    <br>
+    <h2 class="text-center">Stats by Position</h2>
+    <p class="mx-2 text-center">Stats are normalized between 0 and 1, so numbers don't make much sense in these graphs</p>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+<!--<div class="chart-container">-->
+<table class="table">
+    <th class="col-4"><canvas id="topchart" class="chart"></canvas><canvas id="adcchart" class="chart"></canvas></th>
+    <th class="col-4"><canvas id="junglechart" class="chart"></canvas><canvas id="supportchart" class="chart"></canvas></th>
+    <th class="col-4"><canvas id="midchart" class="chart"></canvas></th>
+</table>
+
+<script>
+    var data = {{ data|safe }};
+    console.log(data);
+
+    var ctx1 = document.getElementById('topchart');
+    var chart = new Chart(ctx1, {
+        type: 'radar',
+        data: {
+          labels: ['Winrate', 'KDA', 'Gold', 'Max Time spent living', 'CS', 'Vision Score', 'Level'],
+          datasets: [{
+            label: 'Top',
+            data: [data.top.top_winrate, data.top.top_kda, data.top.top_gold, data.top.top_timeliving, data.top.top_cs, data.top.top_vision, data.top.top_lvl],
+            fill: true,
+            backgroundColor: 'rgba(255, 9, 32, 0.2)',
+            borderColor: 'rgb(255, 99, 32)',
+            pointBackgroundColor: 'rgb(255, 9, 32)',
+            pointBorderColor: '#fff',
+            pointHoverBackgroundColor: '#fff',
+            pointHoverBorderColor: 'rgb(255, 9, 32)'
+          },
+          ]
+        },
+        options: {
+        line : { borderWidth : 3 },
+        scale: { r: {angleLines: { display: true }, min:0, max:1 },  }
+    }});
+
+
+
+
+
+    var ctx2 = document.getElementById('junglechart');
+    var chart2 = new Chart(ctx2, {
+        type: 'radar',
+        data: {
+          labels: ['Winrate', 'KDA', 'Gold', 'Max Time spent living', 'CS', 'Vision Score', 'Level'],
+          datasets: [
+          {
+            label: 'Jungle',
+            data: [data.jungle.jungle_winrate, data.jungle.jungle_kda, data.jungle.jungle_gold, data.jungle.jungle_timeliving, data.jungle.jungle_cs, data.jungle.jungle_vision, data.jungle.jungle_lvl],
+            fill: true,
+            backgroundColor: 'rgba(54, 235, 162, 0.2)',
+            borderColor: 'rgb(54, 235, 162)',
+            pointBackgroundColor: 'rgb(54, 235, 162)',
+            pointBorderColor: '#fff',
+            pointHoverBackgroundColor: '#fff',
+            pointHoverBorderColor: 'rgb(54, 235, 162)'
+          }
+          ]
+        },
+        options: {
+        line : { borderWidth : 3 },
+        scale: { r: {angleLines: { display: true}, min:0, max:1} }
+        } } );
+
+
+    var ctx3 = document.getElementById('midchart');
+    var chart3 = new Chart(ctx3, {
+        type: 'radar',
+        data: {
+          labels: ['Winrate', 'KDA', 'Gold', 'Max Time spent living', 'CS', 'Vision Score', 'Level'],
+          datasets: [
+          {
+            label: 'Middle',
+            data: [data.mid.mid_winrate, data.mid.mid_kda, data.mid.mid_gold, data.mid.mid_timeliving, data.mid.mid_cs, data.mid.mid_vision, data.mid.mid_lvl],
+            fill: true,
+            backgroundColor: 'rgba(255, 217, 102, 0.2)',
+            borderColor: 'rgb(255, 217, 102)',
+            pointBackgroundColor: 'rgb(255, 217, 102)',
+            pointBorderColor: '#fff',
+            pointHoverBackgroundColor: '#fff',
+            pointHoverBorderColor: 'rgb(255, 217, 102)'
+          }
+          ]
+        },
+        options: {
+        line : { borderWidth : 3 },
+        scale: { r: {angleLines: { display: true}, min:0, max:1} }
+        } } );
+
+
+
+    var ctx4 = document.getElementById('adcchart');
+    var chart4 = new Chart(ctx4, {
+        type: 'radar',
+        data: {
+          labels: ['Winrate', 'KDA', 'Gold', 'Max Time spent living', 'CS', 'Vision Score', 'Level'],
+          datasets: [
+          {
+            label: 'ADC',
+            data: [data.adc.adc_winrate, data.adc.adc_kda, data.adc.adc_gold, data.adc.adc_timeliving, data.adc.adc_cs, data.adc.adc_vision, data.adc.adc_lvl],
+            fill: true,
+            backgroundColor: 'rgba(234, 143, 234, 0.2)',
+            borderColor: 'rgb(234, 143, 234)',
+            pointBackgroundColor: 'rgb(234, 143, 234)',
+            pointBorderColor: '#fff',
+            pointHoverBackgroundColor: '#fff',
+            pointHoverBorderColor: 'rgb(234, 143, 234)'
+          }
+          ]
+        },
+        options: {
+        line : { borderWidth : 3 },
+        scale: { r: {angleLines: { display: true}, min:0, max:1} }
+        } } );
+
+
+    var ctx5 = document.getElementById('supportchart');
+    var chart5 = new Chart(ctx5, {
+        type: 'radar',
+        data: {
+          labels: ['Winrate', 'KDA', 'Gold', 'Max Time spent living', 'CS', 'Vision Score', 'Level'],
+          datasets: [
+          {
+            label: 'Support',
+            data: [data.support.support_winrate, data.support.support_kda, data.support.support_gold, data.support.support_timeliving, data.support.support_cs, data.support.support_vision, data.support.support_lvl],
+            fill: true,
+            backgroundColor: 'rgba(54, 162, 235, 0.2)',
+            borderColor: 'rgb(54, 162, 235)',
+            pointBackgroundColor: 'rgb(54, 162, 235)',
+            pointBorderColor: '#fff',
+            pointHoverBackgroundColor: '#fff',
+            pointHoverBorderColor: 'rgb(54, 162, 235)'
+          }
+          ]
+        },
+        options: {
+        line : { borderWidth : 3 },
+        scale: { r: {angleLines: { display: true}, min:0, max:1} }
+        } } );
+</script>
+
+
+{% endblock %}

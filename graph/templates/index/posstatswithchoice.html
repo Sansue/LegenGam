@@ -1,0 +1,196 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<style>
+    .chart-container {
+        display: flex;
+        max-width: 800px;
+        margin: 0 auto;
+        justify-content: left;
+    }
+    .chart {
+        flex: 1;
+        margin-right: 300px;
+        width: 300px;
+        height: 200px;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+    <br>
+<h2 class="text-center">Stats by Position with choice (WIP)</h2>
+    <p class="text-center">Stats are normalized between 0 and 1, so numbers don't make much sense in these graphs</p>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+<div class="chart-container">
+    <form action="Select Roles">
+        <div class="form-switch">
+            <input type="checkbox" id="Top" class="form-check-input">
+            <label for="Top" class="form-check-label">Top</label>
+        </div>
+        <div class="form-switch">
+            <input type="checkbox" id="Jungle" class="form-check-input">
+            <label for="Jungle" class="form-check-label" >Jungle</label>
+        </div>
+        <div class="form-switch">
+            <input type="checkbox" id="Mid" class="form-check-input">
+            <label for="Mid" class="form-check-label">Mid</label>
+        </div>
+        <div class="form-switch">
+            <input type="checkbox" id="ADC" class="form-check-input">
+            <label for="ADC" class="form-check-label">ADC</label>
+        </div>
+        <div class="form-switch">
+            <input type="checkbox" id="Support" class="form-check-input">
+            <label for="Support" class="form-check-label">Support</label>
+        </div>
+    </form>
+
+    <canvas id="Varchart" class="chart"></canvas>
+
+
+    </div>
+<script>
+    var Top = document.getElementById('Top');
+    Top.addEventListener('change', (event) => {
+        if (event.target.checked) {
+            chart.data.datasets.push({
+            label: 'Top',
+            data: [data.top.top_winrate, data.top.top_kda, data.top.top_gold, data.top.top_timeliving, data.top.top_cs, data.top.top_vision, data.top.top_lvl],
+            fill: true,
+            backgroundColor: 'rgba(255, 9, 32, 0.2)',
+            borderColor: 'rgb(255, 99, 32)',
+            pointBackgroundColor: 'rgb(255, 9, 32)',
+            pointBorderColor: '#fff',
+            pointHoverBackgroundColor: '#fff',
+            pointHoverBorderColor: 'rgb(255, 9, 32)'
+          });
+            chart.update();
+        } else {
+            chart.data.datasets = chart.data.datasets.filter(elem => elem.label != "Top");
+            chart.update();
+        }
+    });
+
+    var Jungle = document.getElementById('Jungle');
+    Jungle.addEventListener('change', (event) => {
+        if (event.target.checked) {
+            chart.data.datasets.push({
+            label: 'Jungle',
+            data: [data.jungle.jungle_winrate, data.jungle.jungle_kda, data.jungle.jungle_gold, data.jungle.jungle_timeliving, data.jungle.jungle_cs, data.jungle.jungle_vision, data.jungle.jungle_lvl],
+            fill: true,
+            backgroundColor: 'rgba(54, 235, 162, 0.2)',
+            borderColor: 'rgb(54, 235, 162)',
+            pointBackgroundColor: 'rgb(54, 235, 162)',
+            pointBorderColor: '#fff',
+            pointHoverBackgroundColor: '#fff',
+            pointHoverBorderColor: 'rgb(54, 235, 162)'
+          });
+            chart.update();
+        } else {
+            chart.data.datasets = chart.data.datasets.filter(elem => elem.label != "Jungle");
+            chart.update();
+        }
+    });
+
+    var Mid = document.getElementById('Mid');
+    Mid.addEventListener('change', (event) => {
+        if (event.target.checked) {
+            chart.data.datasets.push({
+            label: 'Middle',
+            data: [data.mid.mid_winrate, data.mid.mid_kda, data.mid.mid_gold, data.mid.mid_timeliving, data.mid.mid_cs, data.mid.mid_vision, data.mid.mid_lvl],
+            fill: true,
+            backgroundColor: 'rgba(255, 217, 102, 0.2)',
+            borderColor: 'rgb(255, 217, 102)',
+            pointBackgroundColor: 'rgb(255, 217, 102)',
+            pointBorderColor: '#fff',
+            pointHoverBackgroundColor: '#fff',
+            pointHoverBorderColor: 'rgb(255, 217, 102)'
+          });
+            chart.update();
+        } else {
+            chart.data.datasets = chart.data.datasets.filter(elem => elem.label != "Middle");
+            chart.update();
+        }
+    });
+
+    var ADC = document.getElementById('ADC');
+    ADC.addEventListener('change', (event) => {
+        if (event.target.checked) {
+            chart.data.datasets.push({
+            label: 'ADC',
+            data: [data.adc.adc_winrate, data.adc.adc_kda, data.adc.adc_gold, data.adc.adc_timeliving, data.adc.adc_cs, data.adc.adc_vision, data.adc.adc_lvl],
+            fill: true,
+            backgroundColor: 'rgba(234, 143, 234, 0.2)',
+            borderColor: 'rgb(234, 143, 234)',
+            pointBackgroundColor: 'rgb(234, 143, 234)',
+            pointBorderColor: '#fff',
+            pointHoverBackgroundColor: '#fff',
+            pointHoverBorderColor: 'rgb(234, 143, 234)'
+          });
+          chart.update();
+        } else {
+            chart.data.datasets = chart.data.datasets.filter(elem => elem.label != "ADC");
+            chart.update();
+        }
+    });
+
+    var Support = document.getElementById('Support');
+    Support.addEventListener('change', (event) => {
+        if (event.target.checked) {
+            chart.data.datasets.push({
+            label: 'Support',
+            data: [data.support.support_winrate, data.support.support_kda, data.support.support_gold, data.support.support_timeliving, data.support.support_cs, data.support.support_vision, data.support.support_lvl],
+            fill: true,
+            backgroundColor: 'rgba(54, 162, 235, 0.2)',
+            borderColor: 'rgb(54, 162, 235)',
+            pointBackgroundColor: 'rgb(54, 162, 235)',
+            pointBorderColor: '#fff',
+            pointHoverBackgroundColor: '#fff',
+            pointHoverBorderColor: 'rgb(54, 162, 235)'
+          });
+            chart.update();
+        } else {
+            chart.data.datasets = chart.data.datasets.filter(elem => elem.label != "Support");
+            chart.update();
+        }
+    });
+
+
+    var data = {{ data|safe }};
+    console.log(data);
+
+    var datasets = [{
+        label: "",
+        backgroundColor: 'rgba(54, 162, 235, 0)',
+        borderColor: 'rgba(54, 162, 235,0)',
+        fillColor: "rgba(220,220,220,0)",
+        strokeColor: "rgba(220,220,220,0)",
+        pointColor: "rgba(220,220,220,0)",
+        pointStrokeColor: "#fff",
+        pointHighlightFill: "#fff",
+        pointHighlightStroke: "rgba(220,220,220,0)",
+        // change this data values according to the vertical scale
+        // you are looking for
+        data: []
+    }];
+
+
+    var ctx = document.getElementById('Varchart');
+    var chart = new Chart(ctx, {
+        type: 'radar',
+        data: {
+          labels: ['Winrate', 'KDA', 'Gold', 'Max Time spent living', 'CS', 'Vision Score', 'Level'],
+          datasets: datasets
+        },
+        options: {
+        line : { borderWidth : 3 },
+        scale: { r: {angleLines: { display: true }, min:0, max:1 },  }
+    }});
+
+</script>
+
+
+{% endblock %}

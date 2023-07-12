@@ -1,0 +1,791 @@
+{
+  "type": "SYNTH",
+  "values": [
+    {
+      "name": "3107 - Cocci mar...",
+      "count": 174380,
+      "full_name": "3107 - Cocci market saint maur"
+    },
+    {
+      "name": "3627 - Boulanger...",
+      "count": 150182,
+      "full_name": "3627 - Boulangerie du chateau maison forcher"
+    },
+    {
+      "name": "2093 - Knysna",
+      "count": 149571,
+      "full_name": "2093 - Knysna"
+    },
+    {
+      "name": "611 - Garenne in...",
+      "count": 146255,
+      "full_name": "611 - Garenne informatique"
+    },
+    {
+      "name": "3625 -  Le Colis...",
+      "count": 138037,
+      "full_name": "3625 -  Le Colis\u00e9e Bar Bowling"
+    },
+    {
+      "name": "1301 - Valmy Del...",
+      "count": 135002,
+      "full_name": "1301 - Valmy Delices"
+    },
+    {
+      "name": "2834 - Echo Laverie",
+      "count": 134791,
+      "full_name": "2834 - Echo Laverie"
+    },
+    {
+      "name": "3225  - Record",
+      "count": 133588,
+      "full_name": "3225  - Record"
+    },
+    {
+      "name": "2831 - Echo Lave...",
+      "count": 129952,
+      "full_name": "2831 - Echo Laverie \"av Jean-Jaures\""
+    },
+    {
+      "name": "345 - Un Look po...",
+      "count": 129091,
+      "full_name": "345 - Un Look pour tous"
+    },
+    {
+      "name": "2569 - La Tradi ...",
+      "count": 128365,
+      "full_name": "2569 - La Tradi D'or \"droite\""
+    },
+    {
+      "name": "1416 - Maison Rili",
+      "count": 126409,
+      "full_name": "1416 - Maison Rili"
+    },
+    {
+      "name": "3288 - Factory Food",
+      "count": 125570,
+      "full_name": "3288 - Factory Food"
+    },
+    {
+      "name": "3624 - Franprix ...",
+      "count": 125107,
+      "full_name": "3624 - Franprix charenton le pont"
+    },
+    {
+      "name": "2787 - Sepela Ex...",
+      "count": 122964,
+      "full_name": "2787 - Sepela Exotic"
+    },
+    {
+      "name": "3054 - Chez Terena",
+      "count": 121392,
+      "full_name": "3054 - Chez Terena"
+    },
+    {
+      "name": "2854 - Paradise",
+      "count": 120757,
+      "full_name": "2854 - Paradise"
+    },
+    {
+      "name": "2336 - AZ Bois \"...",
+      "count": 117583,
+      "full_name": "2336 - AZ Bois \"Droite\""
+    },
+    {
+      "name": "1722 - RG Habill...",
+      "count": 117435,
+      "full_name": "1722 - RG Habillement"
+    },
+    {
+      "name": "2593 - PMAB - Ru...",
+      "count": 117000,
+      "full_name": "2593 - PMAB - Rue Louis Rouquier"
+    },
+    {
+      "name": "2348 - AZ Bois \"...",
+      "count": 116518,
+      "full_name": "2348 - AZ Bois \"Gauche\""
+    },
+    {
+      "name": "1392 - Lafayette...",
+      "count": 116447,
+      "full_name": "1392 - Lafayette Coiffure"
+    },
+    {
+      "name": "2210 - Au moulin...",
+      "count": 115913,
+      "full_name": "2210 - Au moulin dor\u00e9"
+    },
+    {
+      "name": "3452 - Mon panie...",
+      "count": 115442,
+      "full_name": "3452 - Mon panier d'asie"
+    },
+    {
+      "name": "1139 - Boulanger...",
+      "count": 115116,
+      "full_name": "1139 - Boulangerie Edison"
+    },
+    {
+      "name": "2466 - KTV Resta...",
+      "count": 114276,
+      "full_name": "2466 - KTV Restaurant chinois"
+    },
+    {
+      "name": "3178 - Salon Nely's",
+      "count": 114073,
+      "full_name": "3178 - Salon Nely's"
+    },
+    {
+      "name": "2755 - Technistores",
+      "count": 113230,
+      "full_name": "2755 - Technistores"
+    },
+    {
+      "name": "2730 - La fra\u00eech...",
+      "count": 112555,
+      "full_name": "2730 - La fra\u00eecheur de mon pain"
+    },
+    {
+      "name": "729 - PMAB - Rue...",
+      "count": 112006,
+      "full_name": "729 - PMAB - Rue Anatole France"
+    },
+    {
+      "name": "674 - Good Bread...",
+      "count": 111324,
+      "full_name": "674 - Good Bread \"Gauche\""
+    },
+    {
+      "name": "665 - Good Bread...",
+      "count": 111203,
+      "full_name": "665 - Good Bread \"Droite\""
+    },
+    {
+      "name": "1892 - Chicago F...",
+      "count": 110908,
+      "full_name": "1892 - Chicago Factory"
+    },
+    {
+      "name": "3453 - Jr Beauty",
+      "count": 110765,
+      "full_name": "3453 - Jr Beauty"
+    },
+    {
+      "name": "1531 - Nina",
+      "count": 109975,
+      "full_name": "1531 - Nina"
+    },
+    {
+      "name": "2001 - Pixiflora",
+      "count": 109596,
+      "full_name": "2001 - Pixiflora"
+    },
+    {
+      "name": "3219 - Yummy home",
+      "count": 108656,
+      "full_name": "3219 - Yummy home"
+    },
+    {
+      "name": "2697 - Le numero 13",
+      "count": 108330,
+      "full_name": "2697 - Le numero 13"
+    },
+    {
+      "name": "1374 - Color Nadine",
+      "count": 108275,
+      "full_name": "1374 - Color Nadine"
+    },
+    {
+      "name": "1303 - Sandanella",
+      "count": 108199,
+      "full_name": "1303 - Sandanella"
+    },
+    {
+      "name": "1387 - New Pressing",
+      "count": 107903,
+      "full_name": "1387 - New Pressing"
+    },
+    {
+      "name": "2850 - M.A Beleza",
+      "count": 107168,
+      "full_name": "2850 - M.A Beleza"
+    },
+    {
+      "name": "300 - Laverie \u00c9clat",
+      "count": 107088,
+      "full_name": "300 - Laverie \u00c9clat"
+    },
+    {
+      "name": "2809 - La Lionne...",
+      "count": 106412,
+      "full_name": "2809 - La Lionne d'Afrique"
+    },
+    {
+      "name": "1157 - L'Europe ...",
+      "count": 105880,
+      "full_name": "1157 - L'Europe - Cours de Vincennes"
+    },
+    {
+      "name": "2450 - Platinium",
+      "count": 105201,
+      "full_name": "2450 - Platinium"
+    },
+    {
+      "name": "3410 - Go Go tours",
+      "count": 104922,
+      "full_name": "3410 - Go Go tours"
+    },
+    {
+      "name": "2289 - Boulanger...",
+      "count": 104648,
+      "full_name": "2289 - Boulangerie p\u00e2tisserie des Laiti\u00e8res"
+    },
+    {
+      "name": "1299 - Teinturer...",
+      "count": 104104,
+      "full_name": "1299 - Teinturerie Lyonnaise"
+    },
+    {
+      "name": "3129 - Green House",
+      "count": 104005,
+      "full_name": "3129 - Green House"
+    },
+    {
+      "name": "2428 - Tradi d'O...",
+      "count": 103864,
+      "full_name": "2428 - Tradi d'Or \" gauche \""
+    },
+    {
+      "name": "3055 - Phone House",
+      "count": 102772,
+      "full_name": "3055 - Phone House"
+    },
+    {
+      "name": "3198 - My green ...",
+      "count": 102250,
+      "full_name": "3198 - My green phone \"Vincennes\""
+    },
+    {
+      "name": "584 - Laverie Redon",
+      "count": 100794,
+      "full_name": "584 - Laverie Redon"
+    },
+    {
+      "name": "2507 - La petite...",
+      "count": 100472,
+      "full_name": "2507 - La petite parisienne"
+    },
+    {
+      "name": "1087 - Self Serv...",
+      "count": 97750,
+      "full_name": "1087 - Self Service Jumin \" Rue Lantiez \""
+    },
+    {
+      "name": "2174 - Okawari",
+      "count": 97311,
+      "full_name": "2174 - Okawari"
+    },
+    {
+      "name": "3285 - Mevsim vo...",
+      "count": 97102,
+      "full_name": "3285 - Mevsim voyages \"droite\""
+    },
+    {
+      "name": "3167 - Le prince...",
+      "count": 95907,
+      "full_name": "3167 - Le prince de la gare"
+    },
+    {
+      "name": "2973 - Barbers's...",
+      "count": 95743,
+      "full_name": "2973 - Barbers's Lab"
+    },
+    {
+      "name": "2719 - Barber Sq...",
+      "count": 95450,
+      "full_name": "2719 - Barber Square"
+    },
+    {
+      "name": "3284 - Mevsim vo...",
+      "count": 95440,
+      "full_name": "3284 - Mevsim voyages \"gauche\""
+    },
+    {
+      "name": "1889 - Coiffure ...",
+      "count": 95339,
+      "full_name": "1889 - Coiffure KB 35"
+    },
+    {
+      "name": "2839 - L'\u00e9quipe ...",
+      "count": 94818,
+      "full_name": "2839 - L'\u00e9quipe RH - Cours pasteur"
+    },
+    {
+      "name": "2874 - Permis 75...",
+      "count": 94534,
+      "full_name": "2874 - Permis 75 Montparnasse"
+    },
+    {
+      "name": "321 - Jourdan Co...",
+      "count": 94456,
+      "full_name": "321 - Jourdan Coiffure"
+    },
+    {
+      "name": "3328 - Restauran...",
+      "count": 93434,
+      "full_name": "3328 - Restaurant Himalaya"
+    },
+    {
+      "name": "1846 - Franprix ...",
+      "count": 92966,
+      "full_name": "1846 - Franprix Dunkerque"
+    },
+    {
+      "name": "1739 - Pressing ...",
+      "count": 92817,
+      "full_name": "1739 - Pressing Lefebvre \"droite\""
+    },
+    {
+      "name": "2682 - Lueurs du...",
+      "count": 92753,
+      "full_name": "2682 - Lueurs du Monde"
+    },
+    {
+      "name": "3393 - Deux roue...",
+      "count": 92723,
+      "full_name": "3393 - Deux roues express"
+    },
+    {
+      "name": "2876- Boulangeri...",
+      "count": 92664,
+      "full_name": "2876- Boulangerie Du Rif"
+    },
+    {
+      "name": "2782 - Miami Sound",
+      "count": 92518,
+      "full_name": "2782 - Miami Sound"
+    },
+    {
+      "name": "3293 - Casino",
+      "count": 92218,
+      "full_name": "3293 - Casino"
+    },
+    {
+      "name": "1669 - Pressing ...",
+      "count": 91918,
+      "full_name": "1669 - Pressing Lefebvre \"gauche\""
+    },
+    {
+      "name": "1010 - Cafe Land...",
+      "count": 91455,
+      "full_name": "1010 - Cafe Land (carte phinline provisoire)"
+    },
+    {
+      "name": "3242 - Maison An...",
+      "count": 91281,
+      "full_name": "3242 - Maison Andreea"
+    },
+    {
+      "name": "410 - Protection...",
+      "count": 91187,
+      "full_name": "410 - Protection ALPHA"
+    },
+    {
+      "name": "2325 - G20 Eli M...",
+      "count": 89439,
+      "full_name": "2325 - G20 Eli Market (centre)"
+    },
+    {
+      "name": "2784 - Casino Shop",
+      "count": 88935,
+      "full_name": "2784 - Casino Shop"
+    },
+    {
+      "name": "931 - 5 \u00e0 Sec \"D...",
+      "count": 86952,
+      "full_name": "931 - 5 \u00e0 Sec \"Droite\""
+    },
+    {
+      "name": "2353 - G20 Eli M...",
+      "count": 86755,
+      "full_name": "2353 - G20 Eli Market (Gauche)"
+    },
+    {
+      "name": "2510 - Le Saotico",
+      "count": 85458,
+      "full_name": "2510 - Le Saotico"
+    },
+    {
+      "name": "2268 - Le Montho...",
+      "count": 85322,
+      "full_name": "2268 - Le Montholon \u00abrue montholon\u00bb"
+    },
+    {
+      "name": "304 - Lavoir du ...",
+      "count": 85073,
+      "full_name": "304 - Lavoir du 14\u00e8me"
+    },
+    {
+      "name": "262 - Billy wash",
+      "count": 84865,
+      "full_name": "262 - Billy wash"
+    },
+    {
+      "name": "574 - Le Montholon",
+      "count": 84047,
+      "full_name": "574 - Le Montholon"
+    },
+    {
+      "name": "933 - 5 \u00e0 Sec \"G...",
+      "count": 83902,
+      "full_name": "933 - 5 \u00e0 Sec \"Gauche\""
+    },
+    {
+      "name": "602 - Oriental D...",
+      "count": 83633,
+      "full_name": "602 - Oriental D\u00e9lices \"Droite\""
+    },
+    {
+      "name": "507 - Oriental D...",
+      "count": 83547,
+      "full_name": "507 - Oriental D\u00e9lices \"Gauche\""
+    },
+    {
+      "name": "570 - JB Bat Renov",
+      "count": 82096,
+      "full_name": "570 - JB Bat Renov"
+    },
+    {
+      "name": "2776 - Audisens ...",
+      "count": 80207,
+      "full_name": "2776 - Audisens Chabrol"
+    },
+    {
+      "name": "2345 - Mobile re...",
+      "count": 79989,
+      "full_name": "2345 - Mobile recycle"
+    },
+    {
+      "name": "780 - Le Jean Bart ",
+      "count": 78741,
+      "full_name": "780 - Le Jean Bart "
+    },
+    {
+      "name": "3633 - La petite...",
+      "count": 78601,
+      "full_name": "3633 - La petite gar\u00e7onni\u00e8re"
+    },
+    {
+      "name": "1999 - Noufila L...",
+      "count": 78191,
+      "full_name": "1999 - Noufila Luxury"
+    },
+    {
+      "name": "1835 - les d\u00e9lic...",
+      "count": 76041,
+      "full_name": "1835 - les d\u00e9lices de Brunet"
+    },
+    {
+      "name": "1923 - Franprix ...",
+      "count": 74570,
+      "full_name": "1923 - Franprix R\u00e9publique"
+    },
+    {
+      "name": "3016 - Coffee S'...",
+      "count": 72587,
+      "full_name": "3016 - Coffee S'Cool"
+    },
+    {
+      "name": "3423 - Nails & Me",
+      "count": 72455,
+      "full_name": "3423 - Nails & Me"
+    },
+    {
+      "name": "471 - Chez Rosa",
+      "count": 71419,
+      "full_name": "471 - Chez Rosa"
+    },
+    {
+      "name": "2199  - Skin Ino...",
+      "count": 69800,
+      "full_name": "2199  - Skin Inovation"
+    },
+    {
+      "name": "2190 - Aloe Pres...",
+      "count": 68283,
+      "full_name": "2190 - Aloe Pressing"
+    },
+    {
+      "name": "277 - La boulang...",
+      "count": 67295,
+      "full_name": "277 - La boulangerie verte"
+    },
+    {
+      "name": "1438 - Pizza De ...",
+      "count": 66835,
+      "full_name": "1438 - Pizza De Angelo"
+    },
+    {
+      "name": "2177 - Barber 22",
+      "count": 66661,
+      "full_name": "2177 - Barber 22"
+    },
+    {
+      "name": "3470  - Twyd Optic",
+      "count": 66460,
+      "full_name": "3470  - Twyd Optic"
+    },
+    {
+      "name": "3331 - Superette...",
+      "count": 65884,
+      "full_name": "3331 - Superette de la gare"
+    },
+    {
+      "name": "3043 - Myrha voy...",
+      "count": 65423,
+      "full_name": "3043 - Myrha voyages \"gauche\""
+    },
+    {
+      "name": "2257 - Accent To...",
+      "count": 64970,
+      "full_name": "2257 - Accent Tonic'"
+    },
+    {
+      "name": "1977 - M\u00e9nilmont...",
+      "count": 64246,
+      "full_name": "1977 - M\u00e9nilmontant Optique"
+    },
+    {
+      "name": "439 - Le Dahlia",
+      "count": 63813,
+      "full_name": "439 - Le Dahlia"
+    },
+    {
+      "name": "618 - Retoucheri...",
+      "count": 62233,
+      "full_name": "618 - Retoucherie de la Reine"
+    },
+    {
+      "name": "1996 - Weclean P...",
+      "count": 61578,
+      "full_name": "1996 - Weclean Pressing"
+    },
+    {
+      "name": "444 - Nocib\u00e9",
+      "count": 60609,
+      "full_name": "444 - Nocib\u00e9"
+    },
+    {
+      "name": "3280 - L'art de ...",
+      "count": 60456,
+      "full_name": "3280 - L'art de la beaut\u00e9"
+    },
+    {
+      "name": "2300 - G20 Eli M...",
+      "count": 59124,
+      "full_name": "2300 - G20 Eli Market (droite)"
+    },
+    {
+      "name": "2770 - Just Clea...",
+      "count": 58619,
+      "full_name": "2770 - Just Clean Pressing \"Droite\""
+    },
+    {
+      "name": "2769 - Just Clea...",
+      "count": 58508,
+      "full_name": "2769 - Just Clean Pressing \"Gauche\""
+    },
+    {
+      "name": "2162 - Just Clea...",
+      "count": 57727,
+      "full_name": "2162 - Just Clean Pressing"
+    },
+    {
+      "name": "1912 - Burger Lu...",
+      "count": 57334,
+      "full_name": "1912 - Burger Lutece"
+    },
+    {
+      "name": "3367 - Nice Clea...",
+      "count": 55798,
+      "full_name": "3367 - Nice Clean Pressing"
+    },
+    {
+      "name": "1367 - Pressing ...",
+      "count": 55676,
+      "full_name": "1367 - Pressing Gambetta \"droite\""
+    },
+    {
+      "name": "1342 - Lyon Roos...",
+      "count": 52984,
+      "full_name": "1342 - Lyon Roosevelt - CA"
+    },
+    {
+      "name": "1336 - Pressing ...",
+      "count": 50738,
+      "full_name": "1336 - Pressing Gambetta \"rue de l'Eglise\""
+    },
+    {
+      "name": "2060 - Droguerie...",
+      "count": 49255,
+      "full_name": "2060 - Droguerie Henri IV"
+    },
+    {
+      "name": "3169 - Afro Styl...",
+      "count": 47966,
+      "full_name": "3169 - Afro Style John"
+    },
+    {
+      "name": "2188 - Aloe Pres...",
+      "count": 47411,
+      "full_name": "2188 - Aloe Pressing \"rue Le Chatelier\""
+    },
+    {
+      "name": "2351 - Espace be...",
+      "count": 46781,
+      "full_name": "2351 - Espace beaute \"Gauche\""
+    },
+    {
+      "name": "2130 - Syma \"Gau...",
+      "count": 46606,
+      "full_name": "2130 - Syma \"Gauche\""
+    },
+    {
+      "name": "2934 - S'Prime",
+      "count": 46606,
+      "full_name": "2934 - S'Prime"
+    },
+    {
+      "name": "2543 - Syma \"Dro...",
+      "count": 46585,
+      "full_name": "2543 - Syma \"Droite\""
+    },
+    {
+      "name": "3507 - Brasserie...",
+      "count": 45832,
+      "full_name": "3507 - Brasserie de la piscine"
+    },
+    {
+      "name": "1223 - Studio 14...",
+      "count": 45479,
+      "full_name": "1223 - Studio 143 \"Droite\""
+    },
+    {
+      "name": "1220 - Studio 14...",
+      "count": 45397,
+      "full_name": "1220 - Studio 143 \"Gauche\""
+    },
+    {
+      "name": "3635 - Groupe Ko...",
+      "count": 44828,
+      "full_name": "3635 - Groupe Konouz"
+    },
+    {
+      "name": "1808 - Paris Tou...",
+      "count": 44403,
+      "full_name": "1808 - Paris Tour - CA"
+    },
+    {
+      "name": "2358 - Espace be...",
+      "count": 44191,
+      "full_name": "2358 - Espace beaute \"Droite\""
+    },
+    {
+      "name": "673 - Cycles Eric",
+      "count": 41588,
+      "full_name": "673 - Cycles Eric"
+    },
+    {
+      "name": "1997 - Le Palais...",
+      "count": 40227,
+      "full_name": "1997 - Le Palais Chinois"
+    },
+    {
+      "name": "3044 - Myrha voy...",
+      "count": 39594,
+      "full_name": "3044 - Myrha voyages \"droite\""
+    },
+    {
+      "name": "3134 - Celia Beaut\u00e9",
+      "count": 39321,
+      "full_name": "3134 - Celia Beaut\u00e9"
+    },
+    {
+      "name": "1981 - Bastille ...",
+      "count": 37182,
+      "full_name": "1981 - Bastille Market"
+    },
+    {
+      "name": "614 - Univers du...",
+      "count": 37096,
+      "full_name": "614 - Univers du B\u00e9b\u00e9 \"Droite\""
+    },
+    {
+      "name": "378 - Univers du...",
+      "count": 36648,
+      "full_name": "378 - Univers du B\u00e9b\u00e9 \"Gauche\""
+    },
+    {
+      "name": "1089 - Hair'in",
+      "count": 36059,
+      "full_name": "1089 - Hair'in"
+    },
+    {
+      "name": "2915 - Mains et ...",
+      "count": 35117,
+      "full_name": "2915 - Mains et merveilles"
+    },
+    {
+      "name": "2735 - Cyber Can...",
+      "count": 35014,
+      "full_name": "2735 - Cyber Candale"
+    },
+    {
+      "name": "3545 - Permis major",
+      "count": 34495,
+      "full_name": "3545 - Permis major"
+    },
+    {
+      "name": "2019 - African m...",
+      "count": 32107,
+      "full_name": "2019 - African market"
+    },
+    {
+      "name": "693 - Beaute Cam...",
+      "count": 31690,
+      "full_name": "693 - Beaute Camelia"
+    },
+    {
+      "name": "1234 - Cyrille G",
+      "count": 28971,
+      "full_name": "1234 - Cyrille G"
+    },
+    {
+      "name": "1823 - R Optical",
+      "count": 25967,
+      "full_name": "1823 - R Optical"
+    },
+    {
+      "name": "2383 - Loca'z Pe...",
+      "count": 23097,
+      "full_name": "2383 - Loca'z Permis"
+    },
+    {
+      "name": "3430 - Beauty Time",
+      "count": 13188,
+      "full_name": "3430 - Beauty Time"
+    },
+    {
+      "name": "2465 - Vit'Pressing",
+      "count": 10291,
+      "full_name": "2465 - Vit'Pressing"
+    },
+    {
+      "name": "3263 - Le marche...",
+      "count": 6792,
+      "full_name": "3263 - Le marche d'a cote \"bois colombes\""
+    }
+  ],
+  "id": "5"
+}

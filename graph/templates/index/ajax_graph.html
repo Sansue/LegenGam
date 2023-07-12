@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <h1 class="text-center">Charts viewer</h1>
+    <a class="btn btn-primary" id="add_viewer_button">Add new chart</a>
+    <div id="whole_container" class="container-fluid">
+    </div>
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.6/Chart.bundle.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.3/jspdf.debug.js"></script>
+    <script id="main_script" type="text/javascript" src={% static 'js/ajax_graph.js' %}></script>
+
+{% endblock %}

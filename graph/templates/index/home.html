@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="text-center">
+        <img src="{% static 'LogoChart.png' %}" alt="Logo" style="max-width: 200px; max-height: 200px;">
+        <p>Welcome to LoL Charts!</p>
+        <p>Here you can find some charts about League of Legends, made from a database with over 180k games.</p>
+    </div>
+    {% url 'graph:winrate' as winrate %}
+    {% url 'graph:winratebychamp' as winratebychamp %}
+    {% url 'graph:winratebychampgraph' as winratebychampgraph %}
+    {% url 'graph:statsbyposition' as statsbyposition %}
+    {% url 'graph:statsbypositionwithchoice' as statsbypositionwithchoice %}
+    {% url 'graph:formchampion' as formchampion %}
+    {% url 'graph:formchampionupdated' as formchampionupdated %}
+    {% url 'graph:ajax_graph' as ajax_graph %}
+    {% url 'graph:statbychamp_ajax' as statbychamp_ajax %}
+<div class="d-grid gap-2 col-3 mx-auto">
+    <hr>
+        <a class="btn btn-primary btn-lg" href="{{ winrate }}"> Wins and losses (Warning: Completely pointless)</a>
+        <hr>
+        <a class="btn btn-primary btn-lg" href="{{ winratebychamp }}"> Winrate by champion </a>
+        <hr>
+        <a class="btn btn-primary btn-lg" href="{{ winratebychampgraph }}"> Winrate by champion (graph) </a>
+        <hr>
+        <a class="btn btn-primary btn-lg" href="{{ statsbyposition }}"> Stats by position </a>
+        <hr>
+        <a class="btn btn-primary btn-lg" href="{{ statsbypositionwithchoice }}"> Stats by position with choice </a>
+        <hr>
+        <div class="btn-group" role="group" aria-label="Basic example">
+          <a type="button" class="btn btn-outline-primary btn-lg" href="{{ formchampion }}">Stats by champion (old)</a>
+          <a type="button" class="btn btn-outline-primary btn-lg" href="{{ formchampionupdated }}">Stats by champion (new)</a>
+        </div>
+        <hr>
+        <a class="btn btn-primary btn-lg" href="{{ statbychamp_ajax }}"> Stats by champion with AJAX </a>
+        <hr>
+        <a class="btn btn-primary btn-lg" href="{{ ajax_graph }}"> Graph selector with AJAX </a>
+        <hr>
+</div>
+{% endblock %}

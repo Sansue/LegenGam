@@ -1,0 +1,77 @@
+<div id="viewer_{i}">
+    <div id="row_1_{i}" class="row border">
+        <div class="col border dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton_{i}"
+                    data-bs-toggle="dropdown" aria-expanded="false">Choose a dataset
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton_{i}">
+                <li><a class="dropdown-item" id="position_button_{i}">Stats by position</a></li>
+                <li><a class="dropdown-item" id="champion_winrate_button_{i}">Champions - Winrate</a></li>
+                <li><a class="dropdown-item" id="cenareo_stats_button_{i}">Cenareo screen stats</a></li>
+            </ul>
+        </div>
+        <div class="col-8 border"><h3 class="text-center">Data Filters & Sorting</h3></div>
+    </div>
+    <div id="row_2_{i}" class="row border">
+        <div class="col border" id="graph_type_{i}"> Choose a chart type:
+            <a class="btn btn-primary" id="position_bar_button_{i}">bar</a>
+            <a class="btn btn-primary" id="position_line_button_{i}">line</a>
+            <a class="btn btn-primary" id="position_radar_button_{i}">radar</a>
+            <a class="btn btn-primary" id="position_pie_button_{i}">pie</a>
+        </div>
+        <div class="col border">
+            <div class="row">
+                <div id="data_sort_menu_container_{i}" class="text-center">
+                    <label for="data_sort_menu_{i}" class="form-label">Sort by...</label>
+                    <select id="data_sort_menu_{i}" class="form-select" required>
+                        <option selected disabled value="data">Data</option>
+                    </select></div>
+            </div>
+            <div class="row">
+                <div class="btn-group d-lg-block text-center" role="group" aria-label="sort-type">
+                    <button id="ascending_sort_{i}" type="button" class="btn btn-outline-primary">Ascending</button>
+                    <button id="descending_sort_{i}" type="button" class="btn btn-outline-primary">Descending</button>
+                </div>
+            </div>
+        </div>
+        <div class="col border">
+            <div class="row">
+                <label id="numerical_limit_text_{i}" for="numerical_limit_{i}" class="form-label">Maximum elements shown : 6</label>
+                <input type="range" class="form-range" id="numerical_limit_{i}" min="1" max="6">
+            </div>
+            <div class="row"></div>
+        </div>
+    </div>
+    <div id="row_3_{i}" class="row">
+        <div class="col border">
+            <div class="row border"><h3 class="text-center">Scales</h3></div>
+            <div id="dataset_scale_container_{i}" class="row border">
+                <div id="dataset_scale_{i}" class="col border">Scale :</div>
+                <div class="col border"> Minimum:
+                    <div class="mb-3"><input type="number" class="form-control" id="dataset_min_{i}" aria-label="min:">
+                    </div>
+                </div>
+                <div class="col border"> Maximum:
+                    <div class="mb-3"><input type="number" class="form-control" id="dataset_max_{i}" aria-label="max:">
+                    </div>
+                </div>
+            </div>
+            <form hidden id="position_form_{i}" action="Select Roles">
+                <div class="form-switch"><input type="checkbox" id="Top_{i}" class="form-check-input"> <label
+                        for="Top_{i}" class="form-check-label">Top</label></div>
+                <div class="form-switch"><input type="checkbox" id="Jungle_{i}" class="form-check-input"> <label
+                        for="Jungle_{i}" class="form-check-label">Jungle</label></div>
+                <div class="form-switch"><input type="checkbox" id="Mid_{i}" class="form-check-input"> <label
+                        for="Mid_{i}" class="form-check-label">Mid</label></div>
+                <div class="form-switch"><input type="checkbox" id="ADC_{i}" class="form-check-input"> <label
+                        for="ADC_{i}" class="form-check-label">ADC</label></div>
+                <div class="form-switch"><input type="checkbox" id="Support_{i}" class="form-check-input"> <label
+                        for="Support_{i}" class="form-check-label">Support</label></div>
+            </form>
+            <a class="btn btn-success" id="downloadPdf_{i}">Download chart as PDF</a>
+            <a class="btn btn-danger" id="remove_viewer_{i}">Remove this viewer</a></div>
+        <div id="chart_container_{i}" class="col-8">
+            <canvas id="chart_{i}"></canvas>
+        </div>
+    </div>
+</div>
