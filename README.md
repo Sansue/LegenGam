@@ -3,7 +3,7 @@
 </p>
 
 --- 
-#### LegenGam
+### LegenGam
 
 This project was made by Axel Maral and Ethan Girard during our internship at Cenareo,
 from june to july 2023.
@@ -13,7 +13,7 @@ needed to implement a statistics tool in the Cenareo web app.
 
 ---
 
-#### Setup
+### Setup
 
 The project is a very simple django website containing one app.
 
@@ -27,17 +27,31 @@ In order to make this work, you just need to:
 
 ---
 
-#### Chart viewer
+### Chart viewer
 
-Now for the interesting part of the project (at least according to cenarists) :
+#### Description
 
 The chart viewer is a tool that takes datasets and allows the user to see the resulting data in charts 
 of his choice with multiple options to personalize them (chart type, scales, number of objects displayed, sorting) and export 
 the result in a PDF.
 
-Its principle is quite simple : When you click a dataset other than the default one displayed on the screen, 
+Its principle is quite simple : 
+You first have a unique chart viewer in which there is the example chart.
+
+When you click a dataset other than the default one displayed on the screen, 
 the frontend asks the django backend with a "fetch" request a JSON file with the needed data. It then treats this data
 and all the chart modifications with js.
 
+You can also add and remove chart viewers on your page to see multiple charts at once, which works the same way as the
+datasets with AJAX requests.
+
 See here where the chart viewer files are located in the project :
-- The html base file ![](./readme_images/ajax_graph_html.png)
+- The html base file : ```graph/templates/index/ajax_graph.html```
+- The base (and only, as of right now) chart viewer component : ```graph/templates/index/ajax_graph_component.html```
+- The javascript that makes everything work : ```graph/static/js/ajax_graph.js```
+- The django urls file for backend requests (The page url is 'ajax_graph' and AJAX requests are 'get_html' and 'get_data') : ```graph/urls.py``` 
+- The django views file for the same purpose : ```graph/views.py```
+- The python file that sends the html component to the front end through the AJAX request : ```graph/ajax_graph_html_renderer.py```
+
+#### Modifying the chart viewer
+
