@@ -100,11 +100,11 @@ function handle_config(i, data) {
         dataset['borderColor'] = all_charts[i].chart_colors;
         datasets.push(dataset);
     }
-    document.getElementById(`data_sort_menu_${i}`).innerHTML += `<option id="${dataset['label']}_sort_button">${dataset['label']}<option>`
+    //document.getElementById(`data_sort_menu_${i}`).innerHTML += `<option id="${dataset['label']}_sort_button">${dataset['label']}<option>`
     return {type: all_charts[i].chart_types[0], data: {labels: labels, datasets: datasets}, options: options};
 }
 
-function generate_random_colors(i) { //generates a list with i random colors
+function generate_random_colors(i) { //generates a list with i random colors in "rgba(x,y,z,a)" form
     let result = [];
     for (let j = 0; j < i; j++) {
         result.push('rgba(' + Math.floor(Math.random() * 255) + ', ' + Math.floor(Math.random() * 255) + ', ' + Math.floor(Math.random() * 255) + ', 1)');
@@ -250,7 +250,7 @@ function create_viewer_objects(i){
     const numerical_limit = document.getElementById(`numerical_limit_${i}`);
     const dataset_min = document.getElementById(`dataset_min_${i}`);
     const dataset_max = document.getElementById(`dataset_max_${i}`);
-    const data_sort_menu = document.getElementById(`data_sort_menu_${i}`);
+    //const data_sort_menu = document.getElementById(`data_sort_menu_${i}`);
     const ascending_sort = document.getElementById(`ascending_sort_${i}`);
     const descending_sort = document.getElementById(`descending_sort_${i}`);
     const position_form = document.getElementById(`position_form_${i}`);
@@ -361,10 +361,11 @@ function create_viewer_objects(i){
         get_data(i, "cenareo_stats")
     });
 
+    /* never implemented correctly, the data I had did not display multiple datasets at once
     data_sort_menu.addEventListener("change", event => {
         event.preventDefault();
         all_charts[i].current_data_sort = event.target.value;
-    });
+    });*/
 
 
     ascending_sort.addEventListener("click", event => {

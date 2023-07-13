@@ -1,1 +1,1 @@
-# LegenGam
+![logo](./graph/static/LogoChart.png "Logo du projet" =250x250)
