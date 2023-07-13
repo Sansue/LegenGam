@@ -3,7 +3,7 @@
 </p>
 
 --- 
-### LegenGam
+# LegenGam
 
 This project was made by Axel Maral and Ethan Girard during our internship at Cenareo,
 from june to july 2023.
@@ -13,7 +13,7 @@ needed to implement a statistics tool in the Cenareo web app.
 
 ---
 
-### Setup
+## Setup
 
 The project is a very simple django website containing one app.
 
@@ -27,9 +27,9 @@ In order to make this work, you just need to:
 
 ---
 
-### Chart viewer
+## Chart viewer
 
-#### Description
+### Description
 
 The chart viewer is a tool that takes datasets and allows the user to see the resulting data in charts 
 of his choice with multiple options to personalize them (chart type, scales, number of objects displayed, sorting) and export 
@@ -60,9 +60,8 @@ See here where the chart viewer files are located in the project :
 - The python file that sends the html component to the front end through the AJAX request : 
   - ```graph/ajax_graph_html_renderer.py```
 
-#### Modifying the chart viewer
 
-## Modifying the Script to Add New Datasets and HTML Components
+### Modifying the ajax_graph.js to Add New Datasets and HTML Components
 
 To modify the provided script to add new datasets and handle different HTML components, you'll need to make changes in a few key areas. Here's a step-by-step guide:
 
