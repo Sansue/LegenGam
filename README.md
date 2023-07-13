@@ -36,6 +36,7 @@ of his choice with multiple options to personalize them (chart type, scales, num
 the result in a PDF.
 
 Its principle is quite simple : 
+
 You first have a unique chart viewer in which there is the example chart.
 
 When you click a dataset other than the default one displayed on the screen, 
@@ -46,12 +47,71 @@ You can also add and remove chart viewers on your page to see multiple charts at
 datasets with AJAX requests.
 
 See here where the chart viewer files are located in the project :
-- The html base file : ```graph/templates/index/ajax_graph.html```
-- The base (and only, as of right now) chart viewer component : ```graph/templates/index/ajax_graph_component.html```
-- The javascript that makes everything work : ```graph/static/js/ajax_graph.js```
-- The django urls file for backend requests (The page url is 'ajax_graph' and AJAX requests are 'get_html' and 'get_data') : ```graph/urls.py``` 
-- The django views file for the same purpose : ```graph/views.py```
-- The python file that sends the html component to the front end through the AJAX request : ```graph/ajax_graph_html_renderer.py```
+- The html base file : 
+  - ```graph/templates/index/ajax_graph.html```
+- The base (and only, as of right now) chart viewer component : 
+  - ```graph/templates/index/ajax_graph_component.html```
+- The javascript that makes everything work : 
+  - ```graph/static/js/ajax_graph.js```
+- The django urls file for backend requests (The page url is 'ajax_graph' and AJAX requests are 'get_html' and 'get_data') : 
+  - ```graph/urls.py``` 
+- The django views file for the same purpose : 
+  - ```graph/views.py```
+- The python file that sends the html component to the front end through the AJAX request : 
+  - ```graph/ajax_graph_html_renderer.py```
 
 #### Modifying the chart viewer
+
+## Modifying the Script to Add New Datasets and HTML Components
+
+To modify the provided script to add new datasets and handle different HTML components, you'll need to make changes in a few key areas. Here's a step-by-step guide:
+
+1. **Adding a New Dataset**
+
+   To add a new dataset, you'll need to make changes in the `get_data` and `handle_config` functions.
+
+   - In the `get_data` function:
+     - Add a new `if` condition to handle the new dataset name. For example:
+       ```javascript
+       else if (dataset === "new_dataset") {
+           // Handle the new dataset
+       }
+       ```
+     - Inside the condition, fetch the data for the new dataset and populate the necessary variables (`all_charts[i].all_data`, `all_charts[i].chart_types`, etc.) accordingly.
+     - Create the configuration for the new dataset using the `handle_config` function.
+
+   - In the `handle_config` function:
+     - Add a new `else if` condition to handle the new dataset name. For example:
+       ```javascript
+       else if (all_charts[i].current_dataset === "new_dataset") {
+           // Handle the new dataset configuration
+       }
+       ```
+     - Inside the condition, define the necessary labels, colors, datasets, and options for the new dataset.
+     - Update the returned configuration object with the new dataset's information.
+
+2. **Handling Different HTML Components**
+
+   To handle different HTML components, you'll need to modify the `add_new_viewer` and `create_viewer_objects` functions.
+
+   - In the `add_new_viewer` function:
+     - Modify the `formData.append('html_type', 'base')` line to set the appropriate `html_type` based on the component you want to add. For example:
+       ```javascript
+       formData.append('html_type', 'new_component');
+       ```
+     - Ensure that the server-side code (`get_html/` endpoint) returns the correct HTML template for the new component.
+
+   - In the `create_viewer_objects` function:
+     - Add a new `if` condition to handle the new HTML component. For example:
+       ```javascript
+       if (html_type === 'new_component') {
+           // Handle the new component's creation and event listeners
+       }
+       ```
+     - Inside the condition, create the necessary objects, buttons, and event listeners specific to the new component.
+
+3. **Additional Considerations**
+
+   - If your new dataset requires additional server-side endpoints for data retrieval, you'll need to implement those endpoints and modify the `fetch` requests in the `get_data` function accordingly.
+   - Depending on the complexity of the new component, you may need to modify the server-side code to generate the appropriate HTML template for the new component.
 
